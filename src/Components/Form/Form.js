@@ -9,19 +9,20 @@ class Form extends Component{
       list:[],
       name: '',
       price: 0, 
-      imgurl: ''
+      imgurl: '',
+      editing: false
     }
   }
 
-  componentDidMount(){
-    axios.get('/api/product')
-    .then(res => {
-      this.setState({list: res.data})
-    })
-    .catch(err => {
-      console.log("Lets do this", err)
-    })
-  }
+  // componentDidMount(){
+  //   axios.get('/api/product')
+  //   .then(res => {
+  //     this.setState({list: res.data})
+  //   })
+  //   .catch(err => {
+  //     console.log("Lets do this", err)
+  //   })
+  // }
 
   handleChange = e => {
     let {name, value} = e.target
@@ -45,13 +46,14 @@ class Form extends Component{
       console.log(this.state.list)
     })
     .catch(err => console.log('Error', err))
+    this.props.update()
   }
 
 
 
   render(){
+    let editing = this.state.editing
     return(
-  
         <div>
           <img src={this.state.imgurl || 'https://www.how-to-draw-funny-cartoons.com/images/cartoon-camera-001.jpg'} />
           <p>Image URL:</p>
@@ -62,7 +64,12 @@ class Form extends Component{
           <input placeholder = "Price" value = {this.state.price} name = "price" onChange = {this.handleChange}></input>
           <div>
             <button onClick={this.handleCancel}>Cancel</button>
-            <button onClick={() => this.addProduct()} >Add to Inventory</button>
+            {editing?(
+              <button>Save</button>
+            ) : (
+              <button onClick={() => this.addProduct()} >Add to Inventory</button>
+            )
+            }
           </div>
         </div>
     )

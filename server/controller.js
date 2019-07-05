@@ -15,5 +15,16 @@ module.exports ={
     db.create_item([name, price, imgurl]).then(dbRes => {
       res.sendStatus(200)
     })
+  },
+  deleteItem(req, res){
+    console.log("params", req.params)
+    const {id} = req.params.id
+    const db = req.app.get('db')
+    console.log(id)
+    db.delete_item(id)
+    .then(() => res.sendStatus(200))
+    .catch(err => {
+      res.status(500).send(console.log("whoops", err))
+    })
   }
 }

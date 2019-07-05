@@ -11,8 +11,9 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      list: []
+      list: [],
     }    
+    this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   componentDidMount(){
@@ -29,9 +30,12 @@ class App extends Component {
     return (
       <div className="App">
         <Dashboard 
-        list={this.state.list}
+        list={this.state.list} 
+        update={this.componentDidMount}
          />
-        <Form />
+        <Form
+         update={this.componentDidMount}        
+        />
         <Header />
       </div>
     );

@@ -3,7 +3,7 @@ const express = require('express')
 const {SERVER_PORT, CONNECTION_STRING} = process.env
 const ctrl = require('./controller')
 const massive = require('massive')
-
+const URL = '/api/product'
 
 const app = express()
 
@@ -19,6 +19,7 @@ massive(CONNECTION_STRING).then(db => {
 
 app.get('/api/product', ctrl.getProducts)
 app.post('/api/product', ctrl.addProduct)
+app.delete(`${URL}/:id`, ctrl.deleteItem)
 
 
 
